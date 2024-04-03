@@ -58,7 +58,8 @@ fun DrawInCanvas(modifier: Modifier, path : MutableState<Path>){
                     }
                     motionEvent = Action.Move
                     currentOffset = event.changes.first().position
-                } while (event.changes.any { it.pressed })
+                }
+                while (event.changes.any { it.pressed })
             }
         }
 
@@ -75,7 +76,9 @@ fun DrawInCanvas(modifier: Modifier, path : MutableState<Path>){
                 if (currentOffset != Offset.Unspecified) {
                     path.value.lineTo(currentOffset.x, currentOffset.y)
                 }
+
                 motionEvent = Action.Idle
+
             }
 
             Action.Up -> {

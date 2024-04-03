@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ElevatedButton
@@ -43,19 +44,17 @@ object CanvasSize{
 
 @Composable
 fun SignaturePad(context: Context){
-
-
     val lines = remember {
         mutableStateListOf<Line>()
     }
-
 
     Column {
         DrawingScreen(lines)
         ElevatedButton(onClick = {
             val imageBitmap = drawToBitmap(lines)
             saveBitmapToDownloads(context , imageBitmap.asAndroidBitmap() , "harshil")
-        }) {
+        }
+        ) {
             Text(text = "I do not know")
         }
     }
@@ -104,24 +103,18 @@ fun saveBitmapToDownloads(context: Context, bitmap: Bitmap, fileName: String) {
     }
 }
 
-
-
-
-
 @Composable
 fun DrawingScreen(lines : SnapshotStateList<Line>) {
     Canvas(
         modifier = Modifier
             .background(Color.Black)
-            .height(CanvasSize.Height.pxToDp().dp)
-            .width(CanvasSize.Width.pxToDp().dp)
+            .fillMaxSize()
             .pointerInput(Unit){
                 detectTapGestures {
                     val line = Line(
                         start = it,
                         end = it
                     )
-
                     lines.add(line)
                 }
             }
